@@ -1,0 +1,22 @@
+   38  cp /cita/h/home-1/murray/tmp/Hello_world.py /fs/lustre/scratch/mmoretti/CTA200_2025/assignment_1/Hello_world_moretti.py
+   39  ls
+   40  gcc Hello_world_moretti.c -o Hello_world.x
+   41  ls
+   42  python Hello_world_moretti.py
+   43  python3 Hello_world_moretti.py
+   44  ./Hello_world_moretti.c
+   45  ./Hello_world.x
+   46  vi Hello_world_moretti.py
+   47  python3 Hello_world_moretti.py
+   48  vi Hello_world_moretti.c
+   49  gcc Hello_world_moretti.c -o hello_moretti
+   50  ./hello_moretti > output_c.txt
+   51  python3 Hello_world_moretti.py > output_python.txt
+   52  ls
+   53  cat output_c.txt
+   54  cat output_python.txt
+   55  vi Hello_world_moretti.c
+   56  gcc Hello_world_moretti.c -o hello_moretti
+   57  ./hello_moretti > output_c.txt
+   58  cat output_c.txt
+   59  cat output_python.txt
