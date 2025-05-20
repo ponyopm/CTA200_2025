@@ -1,0 +1,3 @@
+*.npz
+project/trainz_train.npz
+project/trainz_test.npz

@@ -1,0 +1,100 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{float}
+
+\title{CTA200 Assignment 3}
+\author{Matteo Moretti}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\section*{Question 1}
+
+
+For each point \( c = x + iy \) in the complex plane, with \( -2 < x < 2 \) and \( -2 < y < 2 \), I iterated the recurrence relation:
+\[
+z_{i+1} = z_i^2 + c, \quad z_0 = 0
+\]
+
+The behavior of the sequence \( \{z_i\} \) depends on the value of \( c \). For some points, the magnitude \( |z_i| \) remains bounded, while for others it diverges (Mandelbrot set!!!).
+
+I generated two visualizations:
+\begin{itemize}
+    \item A binary image where points that remain bounded are colored black, and those that diverge are colored white.
+    \item A colormapped image where each point is colored based on the iteration number at which it diverged. This highlights the complex boundary structure of the Mandelbrot set.
+\end{itemize}
+
+\begin{figure}[h]
+\centering
+\makebox[\textwidth][c]{%
+  \includegraphics[width=1.1\textwidth]{mandelbrot_subplot.png}
+}
+\caption{Two visualizations of the Mandelbrot set. \textbf{Left:} A binary image indicating whether each complex point \( c \) remains bounded (black) or diverges (white) under iteration of \( z_{i+1} = z_i^2 + c \). \textbf{Right:} A colormapped image showing the iteration count at which divergence occurs.}
+\label{fig:mandelbrot_both}
+\vspace{3mm}
+\end{figure}
+
+\newpage
+
+\section*{Question 2}
+
+\subsection*{Introduction}
+This exercise explores the chaotic behavior of the Lorenz system, first proposed by Edward Lorenz to model atmospheric convection. The system is governed by the following set of differential equations:
+
+\begin{eqnarray}
+\dot{X} &=& -\sigma(X - Y) \\
+\dot{Y} &=& rX - Y - XZ \\
+\dot{Z} &=& -bZ + XY
+\end{eqnarray}
+
+The parameters \(\sigma\), \(r\), and \(b\) represent the Prandtl number, the Rayleigh number, and a dimensionless length scale, respectively. The goal of this exercise is to solve these equations using an analytic ODE solver and analyze the system's behavior.
+
+\subsection*{Solution Methodology}
+To solve the Lorenz system, I implemented a function that defines the system of equations. Using the initial conditions \(W_0 = [0., 1., 0.]\) and parameter values \(\sigma = 10., r = 28, b = \frac{8}{3}\), I solved the system using an ODE solver (specifically, \texttt{solve\_ivp} from SciPy) over a time span of \(t = 60\).
+
+For Figure 3, I plotted the time evolution of the variable \(Y\), which exhibits the characteristic chaotic behavior of the system. The plot was labeled with time steps in dimensionless units (i.e., \(N = t / \Delta t\), where \(\Delta t = 0.01\)).
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{lorenz_2c.png}
+\caption{Reproduction of Lorenz' Figure 1. The solution of the Lorenz system over time.}
+\label{fig:lorenz1}
+\end{figure}
+
+For Figure 4, I focused on a smaller time window (\(t = 14\) to \(t = 19\)) to capture a more detailed view of the Lorenz attractor. This allowed me to observe the sensitive dependence on initial conditions more clearly.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{lorenz_2d.png}
+\caption{Reproduction of Lorenz' Figure 2.}
+\label{fig:lorenz2}
+\end{figure}
+
+\subsection*{Sensitivity to Initial Conditions}
+In the next step, I perturbed the initial conditions by adding a very small value (\(W'_0 = [0., 1.00000001, 0.]\)) to the original initial condition. I then solved the system for both the original and perturbed initial conditions, calculating the distance between the solutions at each time point.
+
+I plotted the distance between the two solutions on a semi-logarithmic scale (linear time, logarithmic distance). This resulted in a straight line, which represents exponential increase.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{lorenz_2e.png}
+\caption{Semi-log plot of the distance between the perturbed and original solutions, demonstrating exponential error growth.}
+\label{fig:distance}
+\end{figure}
+
+\subsection*{Conclusion}
+
+As shown in Figure \ref{fig:lorenz1}, the solution of the Lorenz system exhibits chaotic behavior over time. In Figure \ref{fig:lorenz2}, a closer look at the Lorenz attractor reveals the sensitive dependence on initial conditions. Finally, Figure \ref{fig:distance} demonstrates how small perturbations in the initial conditions lead to exponential growth in the error between the original and perturbed solutions. The system is very unstable, and must have very specific initial conditions to remain in an equilibrium.
+
+
+\end{document}
+

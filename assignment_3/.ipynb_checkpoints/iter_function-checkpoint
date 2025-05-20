@@ -1,0 +1,7 @@
+def iter_z(c,max_iter=100):
+	for i in range(max_iter):
+		z = z**2 + c
+		if abs(z) > 2:
+			return i
+		i += 1
+	return max_iter
